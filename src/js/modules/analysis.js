@@ -98,6 +98,8 @@ var Analysis = (function() {
     else {
       $('#analysis').after("<h3>Unable to analyze. Please enter valid abg parameters.</h3>");
     }
+
+    EVT.emit("abg-interpreted", values);
   }
         
   var bicarb, co2, ph;
