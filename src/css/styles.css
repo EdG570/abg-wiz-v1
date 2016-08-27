@@ -1,3 +1,4 @@
-h1 {
-  color: orange;
+.error-msg {
+  color: red;
+  display: none;
 }

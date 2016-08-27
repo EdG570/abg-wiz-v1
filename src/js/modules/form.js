@@ -16,29 +16,58 @@ var Form = (function() {
     validate(values);
   }
 
-  function validate(values) {
-    for (var val in values) {
-      if (values[val] === '') {
-        throw Error('Please fill in all fields');
-      }
-    }
+  function validate(values) { 
+    var currentValues = setValidState(values);
 
-    parseValues(values);
-  }
-
-  function parseValues(values) {
-    for (var val in values) {
-      if (val === "ph" || val === "currentMv") {
-        values[val] = parseFloat(values[val]);
-        console.log(typeof values[val]);
-      }
+    if (allFieldsValid()) {
+      $errorMsg.hide();
+      finalVals = currentValues;
     }
   }
 
-  var $ph, $co2, $bicarb, $currentMv, $targetCo2;
+  function setValidState(values) {
+    var regExFloat = /^[0-9]\d*(\.\d+)?$/;
+
+    for (var val in values) {
+      if (values[val].match(regExFloat)) {
+        values[val] = parseValues(values[val]);
+        validState[val] = true;
+      } 
+      else {
+        validState[val] = false;
+        $errorMsg.show();
+      }
+    }
+
+    return values;
+  }
+
+  function parseValues(value) {
+    value = parseFloat(value);
+
+    return value;
+  }
+
+  function allFieldsValid() {
+    for (var field in validState) {
+      if (validState[field] === false) {
+        return false;
+      } 
+    }
+
+    return true;
+  }
+    
+  var $ph, $co2, $bicarb, $currentMv, $targetCo2, $errorMsg, finalVals;
+  var validState = {
+    ph: false,
+    co2: false,
+    bicarb: false,
+    currentMv: false,
+    targetCo2: false
+  };
 
   function init() {
-
     $('form').on('click', "[type='submit']", getValues);
 
     $ph = $('#ph');
@@ -46,12 +75,14 @@ var Form = (function() {
     $bicarb = $('#bicarb');
     $currentMv = $('#currentMv');
     $targetCo2 = $('#targetCo2');
-
+    $errorMsg = $('.error-msg');
+    finalVals = null;
   }
 
   return {
 
-    init: init
+    init: init,
+    finalVals: finalVals
 
   };
 
