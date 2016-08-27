@@ -90,5 +90,3 @@ var Form = (function() {
   };
 
 })();
-
-$(document).ready(function() { Form.init(); });
