@@ -7,7 +7,7 @@ var Adjust = (function() {
 
     var targetMv = (mv * co2) / (targetCo2);
     targetMv = Math.round(targetMv * 10) / 10;
-    $('#mv-result').append('<h3>Your target MV to obtain a PaCO2 of ' + targetCo2 + ' is ' + targetMv + ' L/min.</h3>');
+    Ui.appendElement($('#mv-result'), '<h3>Your target MV to obtain a PaCO2 of ' + targetCo2 + ' is ' + targetMv + ' L/min.</h3>');
   }
 
 
