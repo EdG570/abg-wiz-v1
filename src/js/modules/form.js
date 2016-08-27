@@ -22,6 +22,8 @@ var Form = (function() {
     if (allFieldsValid()) {
       $errorMsg.hide();
       finalVals = currentValues;
+
+      EVT.emit("values-validated", finalVals);
     }
   }
 
@@ -59,6 +61,7 @@ var Form = (function() {
   }
     
   var $ph, $co2, $bicarb, $currentMv, $targetCo2, $errorMsg, finalVals;
+
   var validState = {
     ph: false,
     co2: false,
