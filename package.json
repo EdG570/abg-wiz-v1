@@ -4,7 +4,7 @@
   "description": "A web app for analyzing and interpreting arterial blood gases",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --recursive -w",
     "serve": "browser-sync start --server --files 'css/styles.css, js/**/*.js,  *.html'"
   },
   "author": "Ed Glazenski",

@@ -6,8 +6,23 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <h1>Hi</h1>
-  <script src="node_modules/jquery/dist/jquery.js"></script>
-  <script src="node_modules/eventemitter3/index.js"></script>
+  
+  <form action="">
+    <label for="ph">pH</label>
+    <input type="text" name="ph" id="ph" placeholder="ph here">
+    <label for="co2">Co2</label>
+    <input type="text" name="co2" id="co2" placeholder="co2 here">
+    <label for="bicarb">Bicarb</label>
+    <input type="text" name="bicarb" id="bicarb" placeholder="bicarb here">
+    <label for="currentMv">Current MV</label>
+    <input type="text" name="currentMv" id="currentMv" placeholder="current mv here">
+    <label for="targetMv">Target MV</label>
+    <input type="text" name="targetMv" id="targetCo2" placeholder="target mv here">
+    <input type="submit">
+  </form>
+
+  <script src="../node_modules/jquery/dist/jquery.js"></script>
+  <script src="../node_modules/eventemitter3/index.js"></script>
+  <script src="js/modules/form.js"></script>
 </body>
 </html>
