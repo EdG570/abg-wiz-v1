@@ -5,33 +5,46 @@ var Form = (function() {
     e.stopPropagation();
     e.stopImmediatePropagation();
 
+    var formValues = $('form').serializeArray();
+    assignValues(formValues);
+  }
+
+  function assignValues(formValues) {
     var values = {
-      ph: $ph.val(),
-      co2: $co2.val(),
-      bicarb: $bicarb.val(),
-      currentMv: $currentMv.val(),
-      targetCo2: $targetCo2.val()
+      ph: formValues[0].value,
+      co2: formValues[1].value,
+      bicarb: formValues[2].value,
+      currentMv: formValues[3].value,
+      targetCo2: formValues[4].value
     };
 
     validate(values);
   }
 
   function validate(values) { 
-    var currentValues = setValidState(values);
+    var validState = {
+      ph: false,
+      co2: false,
+      bicarb: false,
+      currentMv: false,
+      targetCo2: false
+    };
 
-    if (allFieldsValid()) {
+    var valuesAndState = isValid(values, validState);
+    var currentState = valuesAndState[1];
+    var currentValues = valuesAndState[0];
+
+    if (allFieldsValid(currentState)) {
       $errorMsg.hide();
-      finalVals = currentValues;
-
-      EVT.emit("values-validated", finalVals);
+      EVT.emit("values-validated", currentValues);
     }
   }
 
-  function setValidState(values) {
-    var regExFloat = /^[0-9]\d*(\.\d+)?$/;
+  function isValid(values, validState) {
+    var result = [];
 
     for (var val in values) {
-      if (values[val].match(regExFloat)) {
+      if (isValidNumber(values[val])) {
         values[val] = parseValues(values[val]);
         validState[val] = true;
       } 
@@ -40,17 +53,14 @@ var Form = (function() {
         $errorMsg.show();
       }
     }
+    
+    result.push(values);
+    result.push(validState);
 
-    return values;
+    return result;
   }
 
-  function parseValues(value) {
-    value = parseFloat(value);
-
-    return value;
-  }
-
-  function allFieldsValid() {
+  function allFieldsValid(validState) {
     for (var field in validState) {
       if (validState[field] === false) {
         return false;
@@ -59,34 +69,39 @@ var Form = (function() {
 
     return true;
   }
-    
-  var $ph, $co2, $bicarb, $currentMv, $targetCo2, $errorMsg, finalVals;
 
-  var validState = {
-    ph: false,
-    co2: false,
-    bicarb: false,
-    currentMv: false,
-    targetCo2: false
-  };
+  function isValidNumber(value) {
+    var regExFloat = /^[0-9]\d*(\.\d+)?$/;
+    return regExFloat.test(value);
+  }
+
+  function parseValues(value) {
+    value = parseFloat(value);
+
+    return value;
+  }
+    
+  var $errorMsg;
 
   function init() {
-    $('form').on('click', "[type='submit']", getValues);
 
-    $ph = $('#ph');
-    $co2 = $('#co2');
-    $bicarb = $('#bicarb');
-    $currentMv = $('#currentMv');
-    $targetCo2 = $('#targetCo2');
+    $('form').on('click', "[type='submit']", getValues);
     $errorMsg = $('.error-msg');
-    finalVals = null;
+
   }
 
   return {
 
     init: init,
-    finalVals: finalVals
-
+    test: {
+      isValidNumber: isValidNumber,
+      parseValues: parseValues,
+      allFieldsValid: allFieldsValid,
+      isValid: isValid,
+      getValues: getValues
+    }
   };
 
 })();
+
+module.exports = Form;
