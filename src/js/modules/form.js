@@ -4,8 +4,12 @@ var Form = (function() {
     var regExFloat = /^[0-9]\d*(\.\d+)?$/;
     var isValid = regExFloat.test(this.value);
 
-    isValid ? $errorMsg.hide() : $errorMsg.show();
+    toggleErrorMsg(isValid);
     updateState(e.target.name, isValid);   
+  }
+
+  function toggleErrorMsg(state) {
+    state ? $errorMsg.hide() : $errorMsg.show();
   }
 
   function updateState(field, state) {
@@ -17,14 +21,19 @@ var Form = (function() {
     e.stopPropagation();
     e.stopImmediatePropagation();
 
-    var inValid = false;
-    var currentValues = {};
+    var valid = true;
 
     $.each(validState, function(key, val) {
-      if (!val) inValid = true; 
+      if (!val) valid = false; 
     });
 
-    if (!inValid) {
+    sendValues(valid);
+  }
+
+  function sendValues(valid) {
+    var currentValues = {};
+
+    if (valid) {
       currentValues = parseValues(getFormValues());
       EVT.emit("values-validated", currentValues);
     } else {
