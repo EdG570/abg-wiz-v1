@@ -10,7 +10,7 @@
   <form action="">
     <span class="error-msg">Please enter numbers only. pH, Co2 and Bicarb fields are required.</span>
     <label for="ph">pH</label>
-    <input type="text" name="ph" id="ph" placeholder="ph here" required minlength=1 maxlength=4>
+    <input type="text" name="ph" id="ph" placeholder="ph here" required minlength=1 maxlength=4 pattern="^[0-9]\d*(\.\d+)?$">
     <label for="co2">Co2</label>
     <input type="text" name="co2" id="co2" placeholder="co2 here" required minlength=1 maxlength=3>
     <label for="bicarb">Bicarb</label>
@@ -18,7 +18,7 @@
     <label for="currentMv">Current MV</label>
     <input type="text" name="currentMv" id="currentMv" placeholder="current mv here">
     <label for="targetMv">Target MV</label>
-    <input type="text" name="targetMv" id="targetCo2" placeholder="target mv here">
+    <input type="text" name="targetCo2" id="targetCo2" placeholder="target mv here">
     <input type="submit">
   </form>
 
