@@ -1,17 +1,10 @@
 var Form = (function() {
 
-  function isValidNumber(e, val) {
+  function isValidNumber(val) {
     var regExFloat = /^[0-9]\d*(\.\d+)?$/;
     var isValid = regExFloat.test(val);
 
-    toggleErrorMsg(isValid);
-    updateState(e.target.name, isValid, validState);
-
     return isValid;   
-  }
-
-  function toggleErrorMsg(state) {
-    state ? $errorMsg.hide() : $errorMsg.show();
   }
 
   function updateState(field, state, validState) {
@@ -27,13 +20,23 @@ var Form = (function() {
 
     var valid = true;
 
-    $.each(validState, function(key, val) {
-      if (!val) valid = false; 
+    Object.keys(validState).forEach(function(key) {
+      if (!validState[key] && (key === 'currentMv' || key === 'targetMv') && valid === true) {
+        valid = optionalFieldsEmpty();
+      } else if (!validState[key] && (key === 'ph' || key === 'bicarb' || key === 'co2')) { 
+        valid = false;
+      }
     });
 
-    valid ? prepareValues(valid) : toggleErrorMsg(false);
-
     return valid;
+  }
+
+  function optionalFieldsEmpty() {
+    if (currentMv.value === '' && targetCo2.value === '') {
+      return true;
+    } 
+
+    return false;
   }
 
   function prepareValues(valid) {
@@ -58,12 +61,12 @@ var Form = (function() {
   }
 
   function parseValues(values) {
-    
-    var parsedVals = $.each(values, function(key, val) {
-       values[key] = parseFloat(values[key]);
-    });
 
-    return parsedVals;
+    Object.keys(values).forEach(function(key) {
+      values[key] = parseFloat(values[key]);
+    });
+    
+    return values;
   }
 
   var validState = {
@@ -79,11 +82,14 @@ var Form = (function() {
   function init() {
 
     $('form').on('click', "[type='submit']", function(e) {
-      allValid.call(this, e, validState);
+      var isValid = allValid.call(this, e, validState);
+      isValid ? prepareValues(isValid) : Ui.toggleErrorMsg(isValid, $errorMsg);
     });
 
     $('form').on('keyup', "input[type='text']", function(e) {
-      isValidNumber.call(this, e, this.value);
+      var isValid = isValidNumber.call(this, this.value);
+      Ui.toggleErrorMsg(isValid, $errorMsg);
+      updateState(e.target.name, isValid, validState);
     });
 
     $('form').on('blur', "input[type='text']", function(e) {
@@ -97,6 +103,10 @@ var Form = (function() {
   return {
 
     init: init,
+    isValidNumber: isValidNumber,
+    updateState: updateState,
+    getFormValues: getFormValues,
+    parseValues: parseValues
    
   };
 

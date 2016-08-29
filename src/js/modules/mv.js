@@ -4,8 +4,9 @@ var Adjust = (function() {
     var mv = values.currentMv;
     var targetCo2 = values.targetCo2;
     var co2 = values.co2;
-
-    var targetMv = (mv * co2) / (targetCo2);
+    var targetMv = null;
+     
+    targetMv = (mv * co2) / (targetCo2);
     targetMv = Math.round(targetMv * 10) / 10;
     Ui.appendElement($('#mv-result'), '<h3>Your target MV to obtain a PaCO2 of ' + targetCo2 + ' is ' + targetMv + ' L/min.</h3>');
   }

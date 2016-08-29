@@ -4,8 +4,13 @@ var Ui = (function() {
     parent.append(ele);
   }
 
+  function toggleErrorMsg(state, ele) {
+    state ? ele.hide() : ele.show();
+  }
+
   return {
-    appendElement: appendElement
+    appendElement: appendElement,
+    toggleErrorMsg: toggleErrorMsg
   };
 
 })(); 

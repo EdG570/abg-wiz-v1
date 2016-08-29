@@ -2,12 +2,9 @@ var expect = require('chai').expect;
 var Form = require('../src/js/modules/form');
 
 describe('Form module', function() {
-    var num, num2, num3, validState, values;
+    var validState, values;
 
   beforeEach(function() {
-    num = '7.24';
-    num2 = '40';
-    num3 = 'a';
 
     validState = {
       ph: false,
@@ -17,54 +14,50 @@ describe('Form module', function() {
       targetCo2: false
     };
 
-     values = {
+    values = {
       ph: '7.4',
       co2: '40',
       bicarb: '24',
       currentMv: '10',
       targetCo2: '35'
     };
+
   });
 
-  it('should return true if number matches regular expression', function() {
-    expect(Form.test.isValidNumber(num)).to.equal(true);
-    expect(Form.test.isValidNumber(num2)).to.equal(true);
-    expect(Form.test.isValidNumber(num3)).to.equal(false);
+  it('should return true if a value is valid', function() {
+
+    var val = '7.24';
+    var val2 = '40';
+    var val3 = 'a';
+    var val4 = '&7.4';
+    var val5 = ' 6.2';
+
+    expect(Form.isValidNumber(val)).to.equal(true);
+    expect(Form.isValidNumber(val2)).to.equal(true);
+    expect(Form.isValidNumber(val3)).to.equal(false);
+    expect(Form.isValidNumber(val4)).to.equal(false);
+    expect(Form.isValidNumber(val5)).to.equal(false);
+
+  });
+
+  it('should update validState and return the updated validState object', function() {
+
+    var field = 'ph';
+    var state = true;
+
+    expect(validState.ph).to.equal(false);
+
+    var newState = Form.updateState(field, state, validState); 
+    expect(newState.ph).to.equal(true);
+
   });
 
   it('should return parsed floating point numbers', function() {
-    expect(Form.test.parseValues(num)).to.equal(7.24);
-    expect(Form.test.parseValues(num2)).to.equal(40);
-  });
 
-  it('should return true if all keys are true', function() {
+    var result = Form.parseValues(values);
 
-    var validState1 = {
-      ph: true,
-      co2: true,
-      bicarb: true,
-      currentMv: true,
-      targetCo2: true
-    };
+    expect(result).to.be.an('object');
 
-    var validState2 = {
-      ph: true,
-      co2: true,
-      bicarb: true,
-      currentMv: true,
-      targetCo2: false
-    };
-
-    expect(Form.test.allFieldsValid(validState)).to.equal(false);
-    expect(Form.test.allFieldsValid(validState1)).to.equal(true);
-    expect(Form.test.allFieldsValid(validState2)).to.equal(false);
-  });
-
-  it('should return an array of values and valid state', function() {
-    expect(Form.test.isValid(values, validState)).to.be.eql([
-        { ph: 7.4, co2: 40, bicarb: 24, currentMv: 10, targetCo2: 35 },
-        { ph: true, co2: true, bicarb: true, currentMv: true, targetCo2: true }
-      ]);
   });
   
 });

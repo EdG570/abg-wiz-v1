@@ -29,13 +29,13 @@ var Analysis = (function() {
 
   function analyze(values) { 
 
+    var abg = getRefVals();
+    var $analysis = $('#analysis');
+    abgValues = values;
     bicarb = values.bicarb;
     ph = values.ph;
     co2 = values.co2;
-
-    var abg = getRefVals();
-    var $analysis = $('#analysis');
-        
+   
     if( abg.ph.normal && abg.co2.normal && abg.bicarb.normal ) {
       Ui.appendElement($analysis, "<h3>Normal Blood Gas</h3>");
     }
@@ -100,18 +100,27 @@ var Analysis = (function() {
       Ui.appendElement($analysis, "<h3>Unable to analyze. Note that anomalies won't be covered.</h3>");
     }
 
-    EVT.emit("abg-interpreted", values);
+    sendValuesIfValid(values);
+    
+  }
 
+  function sendValuesIfValid(currentValues) {
+    if (!isNaN(currentValues.currentMv) && !isNaN(abgValues.targetCo2)) {
+      EVT.emit("abg-interpreted", abgValues);
+    }
   }
         
-  var bicarb, co2, ph;
+  var bicarb, co2, ph, currentMv, targetCo2, abgValues;
 
   function init() {
     EVT.on("values-validated", analyze);
-
+    
     bicarb = null;
     co2 = null;
     ph = null;
+    currentMv = null;
+    targetCo2 = null;
+    abgValues = null;
   }
 
   return {
