@@ -1,22 +1,26 @@
 var Form = (function() {
 
-  function isValidNumber(e) {
+  function isValidNumber(e, val) {
     var regExFloat = /^[0-9]\d*(\.\d+)?$/;
-    var isValid = regExFloat.test(this.value);
+    var isValid = regExFloat.test(val);
 
     toggleErrorMsg(isValid);
-    updateState(e.target.name, isValid);   
+    updateState(e.target.name, isValid, validState);
+
+    return isValid;   
   }
 
   function toggleErrorMsg(state) {
     state ? $errorMsg.hide() : $errorMsg.show();
   }
 
-  function updateState(field, state) {
+  function updateState(field, state, validState) {
     validState[field] = state;
+
+    return validState;
   }
 
-  function allValid(e) {
+  function allValid(e, validState) {
     e.preventDefault();
     e.stopPropagation();
     e.stopImmediatePropagation();
@@ -27,18 +31,20 @@ var Form = (function() {
       if (!val) valid = false; 
     });
 
-    sendValues(valid);
+    valid ? prepareValues(valid) : toggleErrorMsg(false);
+
+    return valid;
   }
 
-  function sendValues(valid) {
-    var currentValues = {};
+  function prepareValues(valid) {
+    var currentValues = parseValues(getFormValues());
+    emitEvent(currentValues);
 
-    if (valid) {
-      currentValues = parseValues(getFormValues());
-      EVT.emit("values-validated", currentValues);
-    } else {
-      $errorMsg.show();
-    }
+    return currentValues;
+  }
+
+  function emitEvent(currentValues) {
+    EVT.emit("values-validated", currentValues);
   }
 
   function getFormValues() {
@@ -72,9 +78,18 @@ var Form = (function() {
 
   function init() {
 
-    $('form').on('click', "[type='submit']", allValid);
-    $('form').on('keyup', "input[type='text']", isValidNumber);
-    $('form').on('blur', "input[type='text']", isValidNumber);
+    $('form').on('click', "[type='submit']", function(e) {
+      allValid.call(this, e, validState);
+    });
+
+    $('form').on('keyup', "input[type='text']", function(e) {
+      isValidNumber.call(this, e, this.value);
+    });
+
+    $('form').on('blur', "input[type='text']", function(e) {
+      isValidNumber.call(this, e, this.value);
+    });
+
     $errorMsg = $('.error-msg');
 
   }
@@ -87,4 +102,4 @@ var Form = (function() {
 
 })();
 
-// module.exports = Form;
+module.exports = Form;

@@ -97,7 +97,7 @@ var Analysis = (function() {
     }
 
     else {
-      Ui.appendElement($analysis, "<h3>Unable to analyze. Please enter valid abg parameters.</h3>");
+      Ui.appendElement($analysis, "<h3>Unable to analyze. Note that anomalies won't be covered.</h3>");
     }
 
     EVT.emit("abg-interpreted", values);
