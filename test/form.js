@@ -52,6 +52,41 @@ describe('Form module', function() {
 
   });
 
+  it('should return true if currentMv and targetCo2 are empty', function() {
+    var currentValues = {
+      ph: '7.4',
+      co2: '40',
+      bicarb: '22',
+      currentMv: '10',
+      targetCo2: '35'
+    };
+
+    var emptyValues = {
+      ph: '7.4',
+      co2: '40',
+      bicarb: '22',
+      currentMv: '',
+      targetCo2: ''
+    };
+
+    var oneEmptyValue = {
+      ph: '7.4',
+      co2: '40',
+      bicarb: '22',
+      currentMv: '',
+      targetCo2: '35'
+    };
+    
+    var result = Form.optionalFieldsEmpty(currentValues);
+    expect(result).to.equal(false);
+
+    result = Form.optionalFieldsEmpty(emptyValues);
+    expect(result).to.equal(true);
+
+    result = Form.optionalFieldsEmpty(oneEmptyValue);
+    expect(result).to.equal(false);
+  });
+
   it('should return parsed floating point numbers', function() {
 
     var result = Form.parseValues(values);

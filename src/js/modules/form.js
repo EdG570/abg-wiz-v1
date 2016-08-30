@@ -19,10 +19,10 @@ var Form = (function() {
     e.stopImmediatePropagation();
 
     var valid = true;
-
+    
     Object.keys(validState).forEach(function(key) {
       if (!validState[key] && (key === 'currentMv' || key === 'targetMv') && valid === true) {
-        valid = optionalFieldsEmpty();
+        valid = optionalFieldsEmpty(getCurrentValues());
       } else if (!validState[key] && (key === 'ph' || key === 'bicarb' || key === 'co2')) { 
         valid = false;
       }
@@ -31,26 +31,15 @@ var Form = (function() {
     return valid;
   }
 
-  function optionalFieldsEmpty() {
-    if (currentMv.value === '' && targetCo2.value === '') {
+  function optionalFieldsEmpty(currentValues) {
+    if (currentValues.currentMv === '' && currentValues.targetCo2 === '') {
       return true;
     } 
 
     return false;
   }
 
-  function prepareValues(valid) {
-    var currentValues = parseValues(getFormValues());
-    emitEvent(currentValues);
-
-    return currentValues;
-  }
-
-  function emitEvent(currentValues) {
-    EVT.emit("values-validated", currentValues);
-  }
-
-  function getFormValues() {
+  function getCurrentValues() {
     return {
       ph: ph.value,
       co2: co2.value,
@@ -58,6 +47,10 @@ var Form = (function() {
       currentMv: currentMv.value,
       targetCo2: targetCo2.value
     };
+  }
+
+  function emitEvent(currentValues) {
+    EVT.emit("values-validated", currentValues);
   }
 
   function parseValues(values) {
@@ -69,7 +62,7 @@ var Form = (function() {
     return values;
   }
 
-  var validState = {
+  validState = {
     ph: false,
     co2: false,
     bicarb: false,
@@ -77,13 +70,14 @@ var Form = (function() {
     targetCo2: false
   };
     
-  var $errorMsg;
+  var $errorMsg, validState, currentValues;
 
   function init() {
 
     $('form').on('click', "[type='submit']", function(e) {
       var isValid = allValid.call(this, e, validState);
-      isValid ? prepareValues(isValid) : Ui.toggleErrorMsg(isValid, $errorMsg);
+      isValid ? currentValues = parseValues(getCurrentValues()) : Ui.toggleErrorMsg(isValid, $errorMsg);
+      if (isValid) emitEvent(currentValues);
     });
 
     $('form').on('keyup', "input[type='text']", function(e) {
@@ -105,8 +99,8 @@ var Form = (function() {
     init: init,
     isValidNumber: isValidNumber,
     updateState: updateState,
-    getFormValues: getFormValues,
-    parseValues: parseValues
+    parseValues: parseValues,
+    optionalFieldsEmpty: optionalFieldsEmpty
    
   };
 

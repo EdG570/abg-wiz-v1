@@ -1,3 +1,146 @@
+/* ---------- Base Styles -------- */
+
+html, body {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1, h2, h3 {
+  font-family: 'Varela Round', sans-serif;
+  letter-spacing: 1px;
+}
+
+p {
+  line-height: 1.4;
+  letter-spacing: 1px;
+  font-family: 'Lato', sans-serif;
+}
+
+.clearfix {
+  content: ' ';
+  display: table;
+  clear: both;
+}
+
+/* ----------- Containers ------------*/
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* ------------ Form Section -----------*/
+
+h1 {
+  text-align: center;
+  color: lightblue;
+  letter-spacing: 1px;
+  font-weight: 300;
+  margin-left: 0.5em;
+}
+
+.title-section {
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.title-section > img {
+  width: 3em;
+  position: absolute;
+  left: 4em;
+  bottom: 0.05em;
+}
+
+/* ------------ Form ---------------*/
+
+#form-section {
+  padding-top: 5em;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../images/background.jpg") no-repeat center; 
+  background-size: cover;
+  height: 100vh;
+}
+
+form {
+  max-width: 400px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 3em 2em 2em 2em;
+  background-color: rgba(173, 216, 230, 0.5);
+  border-radius: 10px;
+}
+
+form div {
+  width: 100%;
+}
+
+form input {
+  border-radius: 5px;
+}
+
+label {
+  color: #d49e19;
+  float: left;
+  width: 70px;
+  font-size: 1.2em;
+}
+
+form input[type=text] {
+  width: 70%;
+  padding: 0.5em;
+  float: right;
+}
+
+form > div {
+  margin-bottom: 2em;
+}
+
+form input {
+  border: none;
+}
+
+.btn-container {
+  width: 73.5%;
+  float: right;
+}
+
+.btn-container input[type='submit'],
+.btn-container input[type='reset'] {
+  padding: 0.5em 2em;
+}
+
+form input[type="submit"] {
+  background-color: #E99F75;
+  margin-right: 1em;
+}
+
+/* ----------- Interpret Results Section --------- */
+
+#interpret-result,
+#calc-result {
+  max-width: 400px;
+  width: 90%;
+  margin: 0 auto;
+  color: #fff;
+  padding: 1em 2em 2em 2em;
+  border-radius: 10px;
+  background-color: rgba(173, 216, 230, 0.5);
+  margin-top: 2em;
+}
+
+h2 {
+  color: #d49e19;
+  text-align: center;
+  margin-top: 0;
+}
+
+/* ----------- Error Messages ------- */
+
 .error-msg {
   color: red;
   display: none;

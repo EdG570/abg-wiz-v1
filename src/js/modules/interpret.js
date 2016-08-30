@@ -1,4 +1,4 @@
-var Analysis = (function() {
+var Interpret = (function() {
 
   // Reference value ranges for arterial blood gas analysis
   function getRefVals() {
@@ -30,74 +30,74 @@ var Analysis = (function() {
   function analyze(values) { 
 
     var abg = getRefVals();
-    var $analysis = $('#analysis');
+    var $interpret = $('#interpret-result');
     abgValues = values;
     bicarb = values.bicarb;
     ph = values.ph;
     co2 = values.co2;
    
     if( abg.ph.normal && abg.co2.normal && abg.bicarb.normal ) {
-      Ui.appendElement($analysis, "<h3>Normal Blood Gas</h3>");
+      Ui.appendElement($interpret, "<h3>Normal Blood Gas</h3>");
     }
 
     else if( abg.ph.low && abg.co2.high && abg.bicarb.normal ) {
-      Ui.appendElement($analysis, "<h3>Acute Respiratory Acidosis</h3>");
+      Ui.appendElement($interpret, "<h3>Acute Respiratory Acidosis</h3>");
     }
 
     else if( abg.ph.low && abg.co2.high && abg.bicarb.high ) {
-      Ui.appendElement($analysis, "<h3>Partially Compensated Respiratory Acidosis</h3>");
+      Ui.appendElement($interpret, "<h3>Partially Compensated Respiratory Acidosis</h3>");
     }
 
     else if( abg.ph.low && abg.co2.high && abg.bicarb.low ) {
-      Ui.appendElement($analysis, "<h3>Combined Metabolic & Respiratory Acidosis</h3>");
+      Ui.appendElement($interpret, "<h3>Combined Metabolic & Respiratory Acidosis</h3>");
     }
 
     else if( abg.ph.normal && abg.co2.high && abg.bicarb.high ) {
-      Ui.appendElement($analysis, "<h3>Compensated Respiratory Acidosis</h3>");
+      Ui.appendElement($interpret, "<h3>Compensated Respiratory Acidosis</h3>");
     }
 
     else if( abg.ph.high && abg.co2.low && abg.bicarb.normal ) {
-      Ui.appendElement($analysis, "<h3>Acute Respiratory Alkalosis</h3>");
+      Ui.appendElement($interpret, "<h3>Acute Respiratory Alkalosis</h3>");
     }
 
     else if( abg.ph.high && abg.co2.low && abg.bicarb.high ) {
-      Ui.appendElement($analysis, "<h3>Combined Respiratory & Metabolic Alkalosis</h3>");
+      Ui.appendElement($interpret, "<h3>Combined Respiratory & Metabolic Alkalosis</h3>");
     }
 
     else if( abg.ph.high && abg.co2.low && abg.bicarb.low ) {
-      Ui.appendElement($analysis, "<h3>Partially Compensated Respiratory Alkalosis</h3>");
+      Ui.appendElement($interpret, "<h3>Partially Compensated Respiratory Alkalosis</h3>");
     }
 
     else if( abg.ph.normal && abg.co2.low && abg.bicarb.low ) {
-      Ui.appendElement($analysis, "<h3>Compensated Respiratory Alkalosis</h3>");
+      Ui.appendElement($interpret, "<h3>Compensated Respiratory Alkalosis</h3>");
     }
 
     else if( abg.ph.low && abg.co2.normal && abg.bicarb.low ) {
-      Ui.appendElement($analysis, "<h3>Acute Metabolic Acidosis</h3>");
+      Ui.appendElement($interpret, "<h3>Acute Metabolic Acidosis</h3>");
     }
 
     else if( abg.ph.low && abg.co2.low && abg.bicarb.low ) {
-      Ui.appendElement($analysis, "<h3>Partially Compensated Metabolic Acidosis</h3>");
+      Ui.appendElement($interpret, "<h3>Partially Compensated Metabolic Acidosis</h3>");
     }
 
     else if( abg.ph.normal && abg.co2.low && abg.bicarb.low ) {
-      Ui.appendElement($analysis, "<h3>Partially Compensated Metabolic Acidosis</h3>");
+      Ui.appendElement($interpret, "<h3>Partially Compensated Metabolic Acidosis</h3>");
     }
 
     else if( abg.ph.high && abg.co2.normal && abg.bicarb.high ) {
-      Ui.appendElement($analysis, "<h3>Acute Metabolic Alkalosis</h3>");
+      Ui.appendElement($interpret, "<h3>Acute Metabolic Alkalosis</h3>");
     }
 
     else if( abg.ph.high && abg.co2.high && abg.bicarb.high ) {
-      Ui.appendElement($analysis, "<h3>Partially Compensated Metabolic Alkalosis</h3>");
+      Ui.appendElement($interpret, "<h3>Partially Compensated Metabolic Alkalosis</h3>");
     }
 
     else if( abg.ph.normal && abg.co2.high && abg.bicarb.high ) {
-      Ui.appendElement($analysis, "<h3>Compensated Metabolic Acidosis</h3>");
+      Ui.appendElement($interpret, "<h3>Compensated Metabolic Acidosis</h3>");
     }
 
     else {
-      Ui.appendElement($analysis, "<h3>Unable to analyze. Note that anomalies won't be covered.</h3>");
+      Ui.appendElement($interpret, "<h3>Unable to analyze. Note that anomalies won't be covered.</h3>");
     }
 
     sendValuesIfValid(values);

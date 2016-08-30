@@ -3,34 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <title>ABG Wiz</title>
+  <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  
-  <form action="">
-    <span class="error-msg">Please enter numbers only. pH, Co2 and Bicarb fields are required.</span>
-    <label for="ph">pH</label>
-    <input type="text" name="ph" id="ph" placeholder="ph here" required minlength=1 maxlength=4 pattern="^[0-9]\d*(\.\d+)?$">
-    <label for="co2">Co2</label>
-    <input type="text" name="co2" id="co2" placeholder="co2 here" required minlength=1 maxlength=3>
-    <label for="bicarb">Bicarb</label>
-    <input type="text" name="bicarb" id="bicarb" placeholder="bicarb here" required minlength=1 maxlength=3>
-    <label for="currentMv">Current MV</label>
-    <input type="text" name="currentMv" id="currentMv" placeholder="current mv here">
-    <label for="targetMv">Target MV</label>
-    <input type="text" name="targetCo2" id="targetCo2" placeholder="target mv here">
-    <input type="submit">
-  </form>
+  <section id="form-section">
+    <div class="container">
+      <div class="title-section">
+        <img src="images/lungs.svg" alt="lungs icon image">
+        <h1>ABG Wiz</h1>
+      </div>
 
-  <div id="analysis"></div>
-  <div id="mv-result"></div>
+      <form class="clearfix">
+        <span class="error-msg">Please enter numbers only. pH, Co2 and Bicarb fields are required.</span>
+        <div class="clearfix">
+          <label for="ph">pH</label>
+          <input type="text" name="ph" id="ph" placeholder="Enter ph here..." required minlength=1 maxlength=4>
+        </div>
+        <div class="clearfix">
+          <label for="co2">PaCO<sub>2</sub></label>
+          <input type="text" name="co2" id="co2" placeholder="Enter Co2 here..." required minlength=1 maxlength=3>
+        </div>
+        <div class="clearfix">
+          <label for="bicarb">HCO<sub>3</sub></label>
+          <input type="text" name="bicarb" id="bicarb" placeholder="Enter bicarb here..." required minlength=1 maxlength=3>
+        </div>
+        <div class="clearfix">
+          <label for="currentMv">MV</label>
+          <input type="text" name="currentMv" id="currentMv" placeholder="Enter current MV here...">
+        </div>
+        <div class="clearfix">
+          <label for="targetMv">Target</label>
+          <input type="text" name="targetCo2" id="targetCo2" placeholder="Enter target PaCO2 here...">
+        </div>
+        <div class="clearfix btn-container">
+          <input type="submit">
+          <input type="reset" value="Clear">
+        </div>
+      </form>
+
+      <div id="interpret-result">
+        <h2>Interpretation:</h2>
+      </div>
+      <div id="calc-result">
+        <h2>Target MV:</h2>
+      </div>
+
+    </div>
+  </section>
+
+  
 
   <script src="../node_modules/jquery/dist/jquery.js"></script>
   <script src="../node_modules/eventemitter3/index.js"></script>
   <script src="js/modules/ui.js"></script>
   <script src="js/modules/form.js"></script>
-  <script src="js/modules/analysis.js"></script>
-  <script src="js/modules/mv.js"></script>
+  <script src="js/modules/interpret.js"></script>
+  <script src="js/modules/calculate.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
