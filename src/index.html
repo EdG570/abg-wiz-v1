@@ -9,59 +9,18 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <section id="form-section">
+  <section id="intro-section">
     <div class="container">
       <div class="title-section">
         <img src="images/lungs.svg" alt="lungs icon image">
         <h1>ABG Wiz</h1>
       </div>
 
-      <form class="clearfix">
-        <span class="error-msg">Please enter numbers only. pH, Co2 and Bicarb fields are required.</span>
-        <div class="clearfix">
-          <label for="ph">pH</label>
-          <input type="text" name="ph" id="ph" placeholder="Enter ph here..." required minlength=1 maxlength=4>
-        </div>
-        <div class="clearfix">
-          <label for="co2">PaCO<sub>2</sub></label>
-          <input type="text" name="co2" id="co2" placeholder="Enter Co2 here..." required minlength=1 maxlength=3>
-        </div>
-        <div class="clearfix">
-          <label for="bicarb">HCO<sub>3</sub></label>
-          <input type="text" name="bicarb" id="bicarb" placeholder="Enter bicarb here..." required minlength=1 maxlength=3>
-        </div>
-        <div class="clearfix">
-          <label for="currentMv">MV</label>
-          <input type="text" name="currentMv" id="currentMv" placeholder="Enter current MV here...">
-        </div>
-        <div class="clearfix">
-          <label for="targetMv">Target</label>
-          <input type="text" name="targetCo2" id="targetCo2" placeholder="Enter target PaCO2 here...">
-        </div>
-        <div class="clearfix btn-container">
-          <input type="submit">
-          <input type="reset" value="Clear">
-        </div>
-      </form>
-
-      <div id="interpret-result">
-        <h2>Interpretation:</h2>
-      </div>
-      <div id="calc-result">
-        <h2>Target MV:</h2>
-      </div>
+      <h3>Welcome to ABG Wiz, a web app that makes interpreting and analyzing abgs a breeze. To get started analyzing click on the button below.</h3>
+      
+      <a href="interpret.html">Let's get started</a>
 
     </div>
   </section>
-
-  
-
-  <script src="../node_modules/jquery/dist/jquery.js"></script>
-  <script src="../node_modules/eventemitter3/index.js"></script>
-  <script src="js/modules/ui.js"></script>
-  <script src="js/modules/form.js"></script>
-  <script src="js/modules/interpret.js"></script>
-  <script src="js/modules/calculate.js"></script>
-  <script src="js/app.js"></script>
 </body>
 </html>

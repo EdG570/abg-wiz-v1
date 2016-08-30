@@ -12,19 +12,35 @@ img {
 
 h1, h2, h3 {
   font-family: 'Varela Round', sans-serif;
-  letter-spacing: 1px;
 }
 
 p {
   line-height: 1.4;
-  letter-spacing: 1px;
   font-family: 'Lato', sans-serif;
+}
+
+h1, h2 , h3, p {
+  letter-spacing: 1px;
+}
+
+a {
+  text-decoration: none;
 }
 
 .clearfix {
   content: ' ';
   display: table;
   clear: both;
+}
+
+input:focus {
+  outline: none;
+}
+
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../images/background.jpg") no-repeat center; 
+  background-size: cover;
+  height: 100vh;
 }
 
 /* ----------- Containers ------------*/
@@ -57,13 +73,42 @@ h1 {
   bottom: 0.05em;
 }
 
+/* ------------ Intro Page ---------*/
+
+#intro-section {
+  padding-top: 5em;
+}
+
+#intro-section h3 {
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-weight: 200;
+  font-size: 1.5em;
+  max-width: 450px;
+  line-height: 1.4;
+  margin: 0 auto;
+}
+
+#intro-section a {
+  background-color: #E99F75;
+  color: #fff;
+  width: 270px;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0.75em 4em;
+  border-radius: 5px;
+  margin-top: 1em;
+  font-size: 1.5em;
+  letter-spacing: 1px;
+  font-weight: 200;
+}
+
+
 /* ------------ Form ---------------*/
 
 #form-section {
   padding-top: 5em;
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../images/background.jpg") no-repeat center; 
-  background-size: cover;
-  height: 100vh;
 }
 
 form {
@@ -112,6 +157,9 @@ form input {
 .btn-container input[type='submit'],
 .btn-container input[type='reset'] {
   padding: 0.5em 2em;
+  color: #fff;
+  letter-spacing: 1px;
+  font-weight: 200;
 }
 
 form input[type="submit"] {
@@ -143,5 +191,7 @@ h2 {
 
 .error-msg {
   color: red;
+  opacity: 0.8;
   display: none;
+  line-height: 1.4;
 }
