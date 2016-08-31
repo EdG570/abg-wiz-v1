@@ -27,7 +27,7 @@ var Interpret = (function() {
 
   }
 
-  function analyze(values) { 
+  function interpret(values) {
 
     var abg = getRefVals();
     var $interpret = $('#interpret-result');
@@ -113,7 +113,7 @@ var Interpret = (function() {
   var bicarb, co2, ph, currentMv, targetCo2, abgValues;
 
   function init() {
-    EVT.on("values-validated", analyze);
+    EVT.on("values-validated", interpret);
     
     bicarb = null;
     co2 = null;
@@ -125,8 +125,12 @@ var Interpret = (function() {
 
   return {
 
-    init: init
+    init: init,
+    getRefVals: getRefVals,
+    interpret: interpret
 
   };
 
 })();
+
+module.exports = Interpret;

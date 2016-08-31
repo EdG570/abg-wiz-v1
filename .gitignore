@@ -1,2 +1,7 @@
 node_modules
 dist
+.idea/abg-wizard.iml
+.idea/modules.xml
+.idea/workspace.xml
+.idea/jsLibraryMappings.xml
+.idea/vcs.xml
