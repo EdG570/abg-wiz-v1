@@ -27,8 +27,11 @@ var Calculate = (function() {
 
   return {
 
-    init: init
+    init: init,
+    findTargetMv: findTargetMv
 
   };
 
 })();
+
+module.exports = Calculate;

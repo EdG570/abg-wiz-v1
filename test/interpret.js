@@ -4,7 +4,7 @@
 var expect = require('chai').expect;
 var Interpret = require('../src/js/modules/interpret');
 
-describe.only('Interpret Module', function () {
+describe('Interpret Module', function () {
 
     var vals;
 
